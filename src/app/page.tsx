@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 interface Customer {
     id: number;
@@ -15,9 +15,10 @@ interface Customer {
 }
 
 const contentInput = {
+    fontSize: "16px",
     color: "white",
-    padding: "14px 40px",
-    width: "30vw",
+    padding: "16px 40px",
+    width: "24vw",
 };
 
 const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
@@ -60,7 +61,7 @@ const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
                         {productName}
                     </h5>
                 </a>
-                <span className="text-md">Được mua bởi:</span>
+                <span className="text-md">Được mua bởi khách hàng:</span>
                 <h6 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                     {customerName}
                 </h6>
@@ -130,7 +131,10 @@ const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
                         </h6>
                     </div>
                 </div>
-
+                <div className="flex-items-center mb-4">
+                    <span className="text-md">Khuyến mãi:</span>
+                    <p className="text-lg">{bonus}</p>
+                </div>
                 <div className="flex items-center justify-between">
                     <span className="text-sm">Giá:</span>
                     <span className="text-xl font-bold text-gray-700 dark:text-white">
@@ -150,7 +154,9 @@ const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
 
 export default function Home() {
     const [customers, setCustomer] = useState<Customer[]>([]);
+    const [searchResults, setSearchResults] = useState<Customer[]>([]); // hàm for the search results
     const [isLoading, setIsLoading] = useState(true);
+    const [phoneNumber, setPhoneNumber] = useState(""); //cập nhật trạng thái
 
     const API_ENDPOINT =
         "https://script.google.com/macros/s/AKfycbx6vPdVQKgtwHv3gRqUb74tYt1B4Iizp2QQvKLj93xc5-uuADosiw5eMdZZfWLIc_Vs/exec";
@@ -161,6 +167,20 @@ export default function Home() {
         setIsLoading(false);
         setCustomer(data);
         //console.log(data);
+    };
+
+    const handlePhoneNumberChange = (event: {
+        target: { value: SetStateAction<string> };
+    }) => {
+        setPhoneNumber(event.target.value);
+    };
+
+    const handleButtonClick = (event: { preventDefault: () => void }) => {
+        event.preventDefault(); // add this line
+        const filteredCustomers = customers.filter(
+            (customer) => customer.phoneNumber === phoneNumber
+        );
+        setSearchResults(filteredCustomers);
     };
 
     useEffect(() => {
@@ -228,59 +248,68 @@ export default function Home() {
                     </a>
                 </div>
             </div>
-            <h2 className="text-center text-3xl m-5 font-bold">
+            <h1 className="text-center text-3xl m-5 font-bold">
                 Tra cứu thông tin sản phẩm đã mua
-            </h2>
+            </h1>
             <section className="section m-6 p-6">
-                <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-                    <div className="content " style={contentInput}>
-                        <form className="max-w-xl mx-auto">
-                            <label
-                                htmlFor="default-search"
-                                className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                <form className="max-w-md mx-auto px-5">
+                    <label
+                        htmlFor="default-search"
+                        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                    >
+                        T
+                    </label>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg
+                                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 20 20"
                             >
-                                Tra cứu:
-                            </label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg
-                                        className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                                        />
-                                    </svg>
-                                </div>
-                                <input
-                                    type="text"
-                                    id="default-search"
-                                    className="block w-full p-5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Số điện thoại: 0123..."
-                                    required
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                                 />
-                                <button
-                                    type="submit"
-                                    className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                >
-                                    Tra cứu
-                                </button>
-                            </div>
-                        </form>
+                            </svg>
+                        </div>
+                        <input
+                            type="search"
+                            style={contentInput}
+                            id="default-search"
+                            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Số điện thoại của bạn"
+                            value={phoneNumber}
+                            onChange={handlePhoneNumberChange} // add the event handler here
+                        />
+                        <button
+                            type="button"
+                            className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            onClick={handleButtonClick}
+                        >
+                            Tra cứu
+                        </button>
                     </div>
+                </form>
+            </section>
+
+            <section className="container">
+                <div className="flex items-center justify-center">
+                    {searchResults.map((customer) => (
+                        <Card key={customer.id} customer={customer}></Card>
+                    ))}
+                    <br />
                 </div>
             </section>
 
             <h2 className="text-center text-3xl m-5 font-bold">
                 Danh sách sản phẩm đã bán
             </h2>
+
             <div className="grid w-full gap-3 md:grid-cols-3">
                 {customers.map((customer) => (
                     <Card key={customer.id} customer={customer}></Card>
