@@ -61,10 +61,12 @@ const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
                         {productName}
                     </h5>
                 </a>
-                <span className="text-md">Được mua bởi khách hàng:</span>
-                <h6 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+
+                <p className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white mt-3">
+                    <span className="text-md">Khách hàng: </span>
                     {customerName}
-                </h6>
+                </p>
+
                 <div className="flex items-center mt-2.5 mb-5">
                     <div className="flex items-center space-x-1 rtl:space-x-reverse">
                         <svg
@@ -136,13 +138,12 @@ const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
                     <p className="text-lg">{bonus}</p>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-sm">Giá:</span>
                     <span className="text-xl font-bold text-gray-700 dark:text-white">
-                        {price}VND
+                        <span className="text-sm">Giá:</span> {price}VND
                     </span>
                     <a
                         href="https://zalo.me/0931034852"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                         Liên hệ tư vấn
                     </a>
@@ -219,14 +220,23 @@ export default function Home() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-                <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+                {/* <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
                     <Image
                         className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                        src="/next.svg"
-                        alt="Next.js Logo"
+                        src="/logo2.png"
+                        alt="SpaceGo Logo"
                         width={80}
                         height={37}
                         priority
+                    />
+                </p> */}
+                <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-dark bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+                    <Image
+                        className="relative   dark:invert"
+                        src="/logo2.png"
+                        alt="SpaceGo Logo"
+                        width={180}
+                        height={90}
                     />
                 </p>
                 <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
@@ -288,7 +298,7 @@ export default function Home() {
                         />
                         <button
                             type="button"
-                            className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            className="text-white absolute end-2.5 bottom-2.5 bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             onClick={handleButtonClick}
                         >
                             Tra cứu
@@ -327,9 +337,7 @@ export default function Home() {
                     priority
                 />
             </div> */}
-            <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-                <p>Hello World !</p>
-            </div>
+
             {/* 
             <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a
@@ -400,6 +408,15 @@ export default function Home() {
           </p>
         </a>
       </div> */}
+
+            <div className="flex items-center justify-center">
+                <a
+                    href="https://spacego.id.vn"
+                    className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-6 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                    Trở về SpaceGo
+                </a>
+            </div>
         </main>
     );
 }
