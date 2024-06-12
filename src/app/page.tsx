@@ -18,7 +18,11 @@ const contentInput = {
     fontSize: "16px",
     color: "white",
     padding: "16px 40px",
-    width: "24vw",
+    width: "320px",
+};
+
+const Marginh1 = {
+    marginTop: "45px",
 };
 
 const Card: React.FC<{ customer: Customer }> = ({ customer }) => {
@@ -258,7 +262,7 @@ export default function Home() {
                     </a>
                 </div>
             </div>
-            <h1 className="text-center text-3xl m-5 font-bold">
+            <h1 className="text-center text-3xl m-5 font-bold" style={Marginh1}>
                 Tra cứu thông tin sản phẩm đã mua
             </h1>
             <section className="section m-6 p-6">
@@ -320,7 +324,7 @@ export default function Home() {
                 Danh sách sản phẩm đã bán
             </h2>
 
-            <div className="grid w-full gap-3 md:grid-cols-3">
+            <div className="grid gap-3 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 {customers.map((customer) => (
                     <Card key={customer.id} customer={customer}></Card>
                 ))}
