@@ -1,3 +1,13 @@
+
+<h1>A NEXT JS project for <a href="https://spacego.id.vn/">SpaceGo Website</a> - HUTECH My First Website 2024 Contest</h1>
+<h2>Tech Structure of the feature</h2>
+<ol>
+  <li>Next JS</li>
+  <li>API Google Sheet & App Script</li>
+  <li>Tailwind CSS</li>
+  <li>Responsive</li>
+</ol>
+<p>Main: get warranty period of product from customer's phone number API from Google Sheet</p>
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
